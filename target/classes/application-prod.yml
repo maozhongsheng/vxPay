@@ -1,0 +1,47 @@
+server:
+  port: 9523
+  servlet:
+    context-path: /ad-applets
+
+spring:
+  application:
+    name: ad-applets
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://49.232.91.191:33061/tianzhuo_ad_data?autoReconnect=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: tianzhuo_admin
+    password: Tianzhuo2021
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 10
+    tomcat:
+      max-active: 4
+      min-idle: 2
+      initial-size: 2
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml,classpath:mapper/ckmapper/*Mapper.xml
+  type-aliases-package: com.tianzhuo.ad.vo
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8008/eureka/
+      instance:
+        lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+        lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+        prefer-ip-address: true
+        ip-address: 127.0.0.1
+        instance-id: ${spring.application.name}:${server.port}
+
+feign:
+  hystrix:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+

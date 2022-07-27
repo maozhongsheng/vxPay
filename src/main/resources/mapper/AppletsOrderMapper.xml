@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianzhuo.vxapplets.mapper.AppletsOrderMapper">
+  <resultMap id="BaseResultMap" type="com.tianzhuo.vxapplets.vo.AppletsOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_number" jdbcType="VARCHAR" property="order_number" />
+    <result column="order_description" jdbcType="VARCHAR" property="order_description" />
+    <result column="order_name" jdbcType="VARCHAR" property="order_name" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="order_time" />
+    <result column="next_person" jdbcType="VARCHAR" property="next_person" />
+    <result column="order_state" jdbcType="INTEGER" property="order_state" />
+    <result column="order_money" jdbcType="INTEGER" property="order_money" />
+    <result column="openId" jdbcType="VARCHAR" property="openId" />
+    <result column="commodity_id" jdbcType="INTEGER" property="commodity_id" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_number, order_description, order_name, order_time, next_person, order_state, 
+    order_money, openId, commodity_id
+  </sql>
+  <select id="selectByExample" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from applets_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from applets_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from applets_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrderExample">
+    delete from applets_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrder" useGeneratedKeys="true">
+    insert into applets_order (order_number, order_description, 
+      order_name, order_time, next_person, 
+      order_state, order_money, openId, 
+      commodity_id)
+    values (#{order_number,jdbcType=VARCHAR}, #{order_description,jdbcType=VARCHAR}, 
+      #{order_name,jdbcType=VARCHAR}, #{order_time,jdbcType=TIMESTAMP}, #{next_person,jdbcType=VARCHAR}, 
+      #{order_state,jdbcType=INTEGER}, #{order_money,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, 
+      #{commodity_id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrder" useGeneratedKeys="true">
+    insert into applets_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="order_number != null">
+        order_number,
+      </if>
+      <if test="order_description != null">
+        order_description,
+      </if>
+      <if test="order_name != null">
+        order_name,
+      </if>
+      <if test="order_time != null">
+        order_time,
+      </if>
+      <if test="next_person != null">
+        next_person,
+      </if>
+      <if test="order_state != null">
+        order_state,
+      </if>
+      <if test="order_money != null">
+        order_money,
+      </if>
+      <if test="openId != null">
+        openId,
+      </if>
+      <if test="commodity_id != null">
+        commodity_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="order_number != null">
+        #{order_number,jdbcType=VARCHAR},
+      </if>
+      <if test="order_description != null">
+        #{order_description,jdbcType=VARCHAR},
+      </if>
+      <if test="order_name != null">
+        #{order_name,jdbcType=VARCHAR},
+      </if>
+      <if test="order_time != null">
+        #{order_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="next_person != null">
+        #{next_person,jdbcType=VARCHAR},
+      </if>
+      <if test="order_state != null">
+        #{order_state,jdbcType=INTEGER},
+      </if>
+      <if test="order_money != null">
+        #{order_money,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodity_id != null">
+        #{commodity_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrderExample" resultType="java.lang.Long">
+    select count(*) from applets_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update applets_order
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.order_number != null">
+        order_number = #{record.order_number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_description != null">
+        order_description = #{record.order_description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_name != null">
+        order_name = #{record.order_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_time != null">
+        order_time = #{record.order_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.next_person != null">
+        next_person = #{record.next_person,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_state != null">
+        order_state = #{record.order_state,jdbcType=INTEGER},
+      </if>
+      <if test="record.order_money != null">
+        order_money = #{record.order_money,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null">
+        openId = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodity_id != null">
+        commodity_id = #{record.commodity_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update applets_order
+    set id = #{record.id,jdbcType=BIGINT},
+      order_number = #{record.order_number,jdbcType=VARCHAR},
+      order_description = #{record.order_description,jdbcType=VARCHAR},
+      order_name = #{record.order_name,jdbcType=VARCHAR},
+      order_time = #{record.order_time,jdbcType=TIMESTAMP},
+      next_person = #{record.next_person,jdbcType=VARCHAR},
+      order_state = #{record.order_state,jdbcType=INTEGER},
+      order_money = #{record.order_money,jdbcType=INTEGER},
+      openId = #{record.openId,jdbcType=VARCHAR},
+      commodity_id = #{record.commodity_id,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrder">
+    update applets_order
+    <set>
+      <if test="order_number != null">
+        order_number = #{order_number,jdbcType=VARCHAR},
+      </if>
+      <if test="order_description != null">
+        order_description = #{order_description,jdbcType=VARCHAR},
+      </if>
+      <if test="order_name != null">
+        order_name = #{order_name,jdbcType=VARCHAR},
+      </if>
+      <if test="order_time != null">
+        order_time = #{order_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="next_person != null">
+        next_person = #{next_person,jdbcType=VARCHAR},
+      </if>
+      <if test="order_state != null">
+        order_state = #{order_state,jdbcType=INTEGER},
+      </if>
+      <if test="order_money != null">
+        order_money = #{order_money,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        openId = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodity_id != null">
+        commodity_id = #{commodity_id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrder">
+    update applets_order
+    set order_number = #{order_number,jdbcType=VARCHAR},
+      order_description = #{order_description,jdbcType=VARCHAR},
+      order_name = #{order_name,jdbcType=VARCHAR},
+      order_time = #{order_time,jdbcType=TIMESTAMP},
+      next_person = #{next_person,jdbcType=VARCHAR},
+      order_state = #{order_state,jdbcType=INTEGER},
+      order_money = #{order_money,jdbcType=INTEGER},
+      openId = #{openId,jdbcType=VARCHAR},
+      commodity_id = #{commodity_id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByOrdersNum" parameterType="com.tianzhuo.vxapplets.vo.AppletsOrder">
+    update applets_order
+    set order_number = #{order_number},
+      order_time = #{order_time},
+      order_state = #{order_state},
+    where order_number = #{order_number}
+  </update>
+</mapper>

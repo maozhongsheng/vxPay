@@ -1,0 +1,36 @@
+server:
+  port: 9523
+  servlet:
+    context-path: /ad-applets
+
+spring:
+  application:
+    name: ad-applets
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.140.99.234:33061/tianzhuo_ad_data?autoReconnect=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: tianzhuo_admin
+    password: Tianzhuo2021
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 10
+    tomcat:
+      max-active: 4
+      min-idle: 2
+      initial-size: 2
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml,classpath:mapper/ckmapper/*.xml
+  type-aliases-package: com.tianzhuo.vxapplets.vo
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+logging:
+  level:
+    com.tianzhuo.ad.mapper: debug
